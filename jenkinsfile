@@ -22,21 +22,22 @@ pipeline {
             archiveArtifacts artifacts: '**/*.jar'
             junit testResults: '**/TEST-*.xml'
         }
+        post{
+    success{
+        mail subject: 'The project has been successful',
+             from: 'sandbox.smtp.mailtrap.io',
+             to: 'workdevops97@gmail.com',
+             body: "The project has been successful"
+    }
+    failure{
+        mail subject: 'The project has been failed',
+             from: 'sandbox.smtp.mailtrap.io',
+             to: 'workdevops97@gmail.com',
+             body: "The project has been failed"
+    }
+}
     }
 
 }
-post{
-    success{
-        mail subject: 'The project has been successful'
-             from: 'sandbox.smtp.mailtrap.io'
-             to: 'workdevops97@gmail.com'
-             body: 'The project has been successful'
-    }
-    failure{
-        mail subject: 'The project has been failed'
-             from: 'sandbox.smtp.mailtrap.io'
-             to: 'workdevops97@gmail.com'
-             body: 'The project has been failed'
-    }
-}
+
 }
