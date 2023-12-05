@@ -7,7 +7,9 @@ pipeline {
         cron('* * * * *')
     }
     tools{
-        maven 'maven'
+        MAVEN 'maven',
+        JDK 'java'
+
     }
     stages{
         stage('git'){
