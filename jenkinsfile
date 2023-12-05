@@ -1,5 +1,5 @@
 pipeline {
-    agent{label 'MAVEN && JAVA_17'}
+    agent{label 'maven && java'}
     options{
         timeout(time: 30, unit: 'MINUTES')
     }
