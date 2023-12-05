@@ -1,33 +1,33 @@
 pipeline {
-    agent{label 'maven && java'}
-    options{
-        timeout(time: 30, unit: 'MINUTES')
+    agent {
+    label 'maven && java'
+}
+options {
+    timeout(time: 30, unit: 'MINUTES')
+}
+tools {
+    maven 'maven'
+}
+stages {
+    stage('git') {
+        steps {
+            git url: 'https://github.com/workdevops97/spring-petclinic.git', branch: 'dev'
+        }
     }
-    }
-    tools{
-        maven 'maven'
-    }
-    stages{
-        stage('git'){
-            steps{
-                git url: 'https://github.com/workdevops97/spring-petclinic.git',
-                branch: 'dev'
-            }
-    }
-    stage('build'){
-        steps{
+    stage('build') {
+        steps {
             sh 'mvn clean package'
             archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
             junit testResults: '**/TEST-*.xml'
         }
         post {
-            success{
+            success {
                 mail subject: 'The project has been successful',
                      from: 'sandbox.smtp.mailtrap.io',
                      to: 'workdevops97@gmail.com',
                      body: "The project has been successful"
             }
-            failure{
+            failure {
                 mail subject: 'The project has been failed',
                      from: 'sandbox.smtp.mailtrap.io',
                      to: 'workdevops97@gmail.com',
@@ -35,5 +35,5 @@ pipeline {
             }
         }
     }
-
+}
 }
